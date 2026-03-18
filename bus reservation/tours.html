@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NexBus — Premium Tours</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XL03VKBWCD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XL03VKBWCD');
+</script>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #adc6e0;
+    color: #b8c9ee;
+  }
+
+  header {
+      background: #1f2937; 
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 4em;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+    }
+
+  nav {
+    margin-top: 10px;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    margin: 0 4px;
+    display: inline-block;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+
+  nav a:hover, nav a.active {
+    background: white;
+    color: #0b74ff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+  }
+
+  main h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #1e3a8a;
+  }
+
+  main p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 50px;
+  }
+
+  .tours {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .tour-card {
+    width: 300px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .tour-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  }
+
+  .tour-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .tour-card-content {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tour-card-content h3 {
+    margin: 0 0 10px;
+    font-size: 1.4em;
+    color: #0b74ff;
+  }
+
+  .tour-card-content p {
+    margin: 0 0 8px;
+    font-size: 0.95em;
+    color: #374151;
+  }
+
+  .btn-book {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    background: #0b74ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+
+  .btn-book:hover {
+    background: #0654c2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    text-align: left;
+    position: relative;
+  }
+
+  .modal-content img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  .modal-content h3 {
+    margin: 0 0 10px;
+    color: #0b74ff;
+  }
+
+  .modal-content p {
+    margin: 0 0 8px;
+    color: #374151;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+    color: #0b74ff;
+  }
+
+  .modal-content input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  .phone-input {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .phone-input span {
+    padding: 8px 12px;
+    background: #f3f4f6;
+    border: 1px solid #ccc;
+    border-radius: 6px 0 0 6px;
+    font-weight: bold;
+  }
+
+  .phone-input input {
+    flex: 1;
+    border-radius: 0 6px 6px 0;
+    border-left: none;
+  }
+
+  .modal-content button {
+    width: 100%;
+    padding: 12px;
+    background: #0b74ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .modal-content button:hover {
+    background: #0654c2;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: #d1d5db;
+    font-size: 14px;
+    background: #1f2937;
+    margin-top: 50px;
+    border-top: 1px solid #374151;
+  }
+
+  @media(max-width: 650px){
+    .tour-card { width: 90%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>NexBus</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="book.html">Book Ticket</a>
+    <a href="cancel.html">Cancel Ticket</a>
+    <a href="tickets.html">My Tickets</a>
+    <a href="popular.html">Popular Destinations</a>
+    <a href="tours.html" class="active">Tours</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="help.html">Help</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Premium Tours</h2>
+  <p>Book your next bus tour with NexBus. Only enter passenger details below and get your payment instructions via email.</p>
+
+  <div class="tours">
+    <!-- Goa Tour -->
+    <div class="tour-card" data-tour="Goa Beach Tour" data-duration="3 Days | 2 Nights | Dinner Included" data-price="₹5000" data-img="goa beach.avif">
+      <img src="goa beach.avif" alt="Goa Beach Tour">
+      <div class="tour-card-content">
+        <h3>Goa Beach Tour</h3>
+        <p>Duration: 3 Days | 2 Nights | Dinner Included</p>
+        <p>Price: ₹5000</p>
+        <button class="btn-book">Book Ticket</button>
+      </div>
+    </div>
+
+    <!-- Mumbai Tour -->
+    <div class="tour-card" data-tour="Mumbai City Tour" data-duration="2 Days | 1 Night | Breakfast Included" data-price="₹4500" data-img="mumbai city.avif">
+      <img src="mumbai city.avif" alt="Mumbai City Tour">
+      <div class="tour-card-content">
+        <h3>Mumbai City Tour</h3>
+        <p>Duration: 2 Days | 1 Night | Breakfast Included</p>
+        <p>Price: ₹4500</p>
+        <button class="btn-book">Book Ticket</button>
+      </div>
+    </div>
+
+    <!-- Jaipur Tour -->
+    <div class="tour-card" data-tour="Jaipur Forts Tour" data-duration="3 Days | 2 Nights | Dinner Included" data-price="₹6000" data-img="jaipur forts.jpg">
+      <img src="jaipur forts.jpg" alt="Jaipur Forts Tour">
+      <div class="tour-card-content">
+        <h3>Jaipur Forts Tour</h3>
+        <p>Duration: 3 Days | 2 Nights | Dinner Included</p>
+        <p>Price: ₹6000</p>
+        <button class="btn-book">Book Ticket</button>
+      </div>
+    </div>
+
+    <!-- Coorg Tour -->
+    <div class="tour-card" data-tour="Coorg Hills Tour" data-duration="2 Days | 1 Night | Breakfast Included" data-price="₹5500" data-img="coorg hills.cms">
+      <img src="coorg hills.cms" alt="Coorg Hills Tour">
+      <div class="tour-card-content">
+        <h3>Coorg Hills Tour</h3>
+        <p>Duration: 2 Days | 1 Night | Breakfast Included</p>
+        <p>Price: ₹5500</p>
+        <button class="btn-book">Book Ticket</button>
+      </div>
+    </div>
+
+    <!-- Hyderabad Tour -->
+    <div class="tour-card" data-tour="Hyderabad Food Tour" data-duration="2 Days | 1 Night | Meals Included" data-price="₹4800" data-img="hydrabad.jpg">
+      <img src="hydrabad.jpg" alt="Hyderabad Food Tour">
+      <div class="tour-card-content">
+        <h3>Hyderabad Food Tour</h3>
+        <p>Duration: 2 Days | 1 Night | Meals Included</p>
+        <p>Price: ₹4800</p>
+        <button class="btn-book">Book Ticket</button>
+      </div>
+    </div>
+
+    <!-- Kerala Backwaters Tour -->
+    <div class="tour-card" data-tour="Kerala Backwaters Tour" data-duration="5 Days | 4 Nights | Breakfast & Dinner Included" data-price="₹12000" data-img="kerla.jpg">
+      <img src="kerla.jpg" alt="Kerala Backwaters Tour">
+      <div class="tour-card-content">
+        <h3>Kerala Backwaters Tour</h3>
+        <p>Duration: 5 Days | 4 Nights | Breakfast & Dinner Included</p>
+        <p>Price: ₹12000</p>
+        <button class="btn-book">Book Ticket</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal Popup -->
+<div class="modal" id="bookingModal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <img id="modalImg" src="" alt="Tour Image">
+    <h3 id="modalTour"></h3>
+    <p id="modalDuration"></p>
+    <p id="modalPrice"></p>
+
+    <label>Passenger Name</label>
+    <input type="text" id="passengerName" placeholder="Enter your name">
+
+    <label>Phone Number</label>
+    <div class="phone-input">
+      <span>91+</span>
+      <input type="text" id="passengerPhone" placeholder="Enter 10 digit number">
+    </div>
+
+    <label>Number of Passengers</label>
+    <input type="number" id="passengerCount" min="1" max="20" placeholder="Enter number of passengers">
+
+    <button id="confirmBooking">Confirm Booking</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 NexBus Reservation — All Rights Reserved
+</footer>
+
+<script>
+const modal = document.getElementById('bookingModal');
+const modalImg = document.getElementById('modalImg');
+const modalTour = document.getElementById('modalTour');
+const modalDuration = document.getElementById('modalDuration');
+const modalPrice = document.getElementById('modalPrice');
+const passengerName = document.getElementById('passengerName');
+const passengerPhone = document.getElementById('passengerPhone');
+const passengerCount = document.getElementById('passengerCount');
+let currentTourPrice = '';
+
+document.querySelectorAll('.btn-book').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.tour-card');
+    modal.style.display = 'flex';
+    modalImg.src = card.dataset.img;
+    modalTour.textContent = card.dataset.tour;
+    modalDuration.textContent = 'Duration: ' + card.dataset.duration;
+    modalPrice.textContent = 'Price: ' + card.dataset.price;
+    currentTourPrice = card.dataset.price;
+  });
+});
+
+document.querySelector('.close-modal').addEventListener('click', () => {
+  modal.style.display = 'none';
+  passengerName.value = '';
+  passengerPhone.value = '';
+  passengerCount.value = '';
+});
+
+document.getElementById('confirmBooking').addEventListener('click', () => {
+  const name = passengerName.value.trim();
+  const phone = passengerPhone.value.trim();
+  const count = passengerCount.value.trim();
+
+  const nameRegex = /^[A-Za-z\s]+$/;
+  if(!name || !nameRegex.test(name)){
+    alert("Please enter a valid name (letters only)!");
+    return;
+  }
+
+  const phoneRegex = /^\d{10}$/;
+  if(!phone || !phoneRegex.test(phone)){
+    alert("Please enter a valid 10 digit phone number after 91+!");
+    return;
+  }
+
+  if(!count || isNaN(count) || count < 1){
+    alert("Please enter number of passengers (minimum 1)!");
+    return;
+  }
+
+  alert(`Thank you, ${name}!\nYour booking for ${count} passenger(s) for ${currentTourPrice} has been received.`);
+  passengerName.value = '';
+  passengerPhone.value = '';
+  passengerCount.value = '';
+  modal.style.display = 'none';
+});
+
+window.onclick = function(event) {
+  if(event.target == modal){
+    modal.style.display = 'none';
+    passengerName.value = '';
+    passengerPhone.value = '';
+    passengerCount.value = '';
+  }
+}
+</script>
+</body>
+</html>

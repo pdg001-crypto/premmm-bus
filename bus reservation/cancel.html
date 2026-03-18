@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NexBus — Cancel Ticket</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XL03VKBWCD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XL03VKBWCD');
+</script>
+<style>
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #b1cbe6;
+  color: #111827;
+}
+header {
+      background: #1f2937; 
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 4em;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+    }
+nav { margin-top: 12px; }
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 6px;
+  display: inline-block;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+nav a:hover, nav a.active {
+  background: white;
+  color: #0b74ff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+main {
+  padding: 50px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+main h2 {
+  font-size: 2.4em;
+  margin-bottom: 20px;
+  color: #0b74ff;
+  font-weight: 700;
+  text-align: center;
+}
+main p {
+  font-size: 1.15em;
+  color: #4b5563;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.cancel-card {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  padding: 35px;
+  max-width: 600px;
+  margin: auto;
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+.cancel-card:hover { transform: translateY(-3px); }
+.cancel-card h3 {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: #0b74ff;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.cancel-card label { display: block; font-weight: 500; margin-bottom: 6px; color: #374151; }
+.cancel-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: border-color 0.3s;
+}
+.cancel-card input:focus {
+  outline: none;
+  border-color: #0b74ff;
+  box-shadow: 0 0 0 3px rgba(11,116,255,0.2);
+}
+.cancel-card button {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #0b74ff, #2563eb);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.cancel-card button:hover {
+  background: linear-gradient(90deg, #2563eb, #0b74ff);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #d1d5db;
+  font-size: 14px;
+  background: #1f2937;
+  margin-top: 50px;
+  border-top: 1px solid #374151;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>NexBus</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="book.html">Book Ticket</a>
+    <a href="cancel.html" class="active">Cancel Ticket</a>
+    <a href="tickets.html">My Tickets</a>
+    <a href="popular.html">Popular Destinations</a>
+    <a href="tours.html">Tours</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="help.html">Help</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Cancel Your Ticket</h2>
+  <p>Manage your cancellations with ease. Enter your booking details below to cancel your ticket and view refund eligibility.</p>
+
+  <div class="cancel-card">
+    <h3>Cancellation Form</h3>
+    <form id="cancelForm">
+      <label for="ticket-id">Ticket / Booking ID</label>
+      <input type="text" id="ticket-id" name="ticket-id" placeholder="Enter your booking ID" required>
+
+      <label for="email">Registered Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <button type="submit">Cancel Ticket</button>
+    </form>
+  </div>
+</main>
+
+<footer>
+  &copy; 2025 NexBus Reservation — All Rights Reserved
+</footer>
+
+<script>
+const cancelForm = document.getElementById('cancelForm');
+
+cancelForm.addEventListener('submit', function(e) {
+  e.preventDefault(); // prevent form submission
+
+  // Show confirmation
+  const confirmCancel = confirm("Are you sure you want to cancel your ticket?");
+  if(confirmCancel) {
+    // Show success message
+    alert("Your ticket has been successfully cancelled!");
+    cancelForm.reset();
+  }
+});
+</script>
+</body>
+</html>

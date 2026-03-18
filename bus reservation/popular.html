@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NexBus — Popular Destinations</title>
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XL03VKBWCD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XL03VKBWCD');
+</script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #9ebad6;
+      color: #111827;
+    }
+
+    /* Header */
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 4em;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    nav { margin-top: 12px; }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 0 6px;
+      display: inline-block;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: 15px;
+    }
+    nav a:hover, nav a.active {
+      background: white;
+      color: #0b74ff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    /* Main Section */
+    main {
+      padding: 50px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    main h2 {
+      font-size: 2.3em;
+      margin-bottom: 40px;
+      color: #1e3a8a;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    /* Cards */
+    .destination-list {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .card {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .card img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .card-content {
+      padding: 20px 25px;
+      flex: 1;
+      position: relative;
+    }
+    .card-content h3 {
+      margin: 0;
+      font-size: 1.6em;
+      color: #0b74ff;
+      font-weight: 600;
+    }
+    .card-content p {
+      margin-top: 8px;
+      font-size: 1em;
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    /* Tags */
+    .tags {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag { padding: 6px 14px; border-radius: 20px; font-size: 0.85em; font-weight: 500; }
+    .tag.day { background: #ecfdf5; color: #065f46; }
+    .tag.night { background: #fef2f2; color: #b91c1c; }
+    .tag.service { background: #f3e8ff; color: #6d28d9; }
+
+    /* Book Ticket Button */
+    .book-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 18px;
+      background: #0b74ff;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      position: absolute;
+      right: 25px;
+      bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    .book-btn:hover {
+      background: #084ccf;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Popup Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(3px);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 800px;
+      width: 90%;
+      padding: 20px;
+      position: relative;
+      animation: zoomIn 0.3s ease;
+      overflow-y: auto;
+      max-height: 90vh;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-content img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .modal-content h3 {
+      margin-top: 15px;
+      font-size: 1.8em;
+      color: #0b74ff;
+    }
+    .modal-content p { color: #374151; margin-top: 8px; }
+    .modal-content ul { margin-top: 12px; padding-left: 20px; color: #374151; }
+    .modal-content ul li { margin-bottom: 6px; }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #333;
+      transition: 0.3s;
+    }
+    .close-btn:hover { color: red; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #d1d5db;
+      font-size: 14px;
+      background: #1f2937;
+      margin-top: 50px;
+      border-top: 1px solid #374151;
+    }
+
+    @media (max-width: 768px) {
+      .card { flex-direction: column; }
+      .card img { width: 100%; height: 200px; }
+      .card-content { text-align: center; }
+      .tags { justify-content: center; }
+      .book-btn { position: static; margin-top: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NexBus</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="book.html">Book Ticket</a>
+      <a href="cancel.html">Cancel Ticket</a>
+      <a href="tickets.html">My Tickets</a>
+      <a href="popular.html" class="active">Popular Destinations</a>
+      <a href="tours.html">Tours</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="help.html">Help</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Popular Bus Destinations</h2>
+    <div class="destination-list">
+
+      <!-- Card 1 -->
+      <div class="card" onclick="openModal('modal1')">
+        <img src="bus 2.jpg" alt="Pune to Mumbai">
+        <div class="card-content">
+          <h3>Pune → Mumbai</h3>
+          <p>Frequent AC & Sleeper buses for day and night travel.</p>
+          <div class="tags">
+            <span class="tag day">Day Plan</span>
+            <span class="tag night">Night Plan</span>
+            <span class="tag service">WiFi</span>
+            <span class="tag service">Charging</span>
+            <span class="tag service">Snacks</span>
+          </div>
+          <a href="book.html?route=Pune-Mumbai" class="book-btn" onclick="event.stopPropagation()">Book Ticket</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card" onclick="openModal('modal2')">
+        <img src="bus 3.png" alt="Mumbai to Goa">
+        <div class="card-content">
+          <h3>Mumbai → Goa</h3>
+          <p>Luxury scenic buses with day/night options and entertainment.</p>
+          <div class="tags">
+            <span class="tag night">Night Plan</span>
+            <span class="tag service">Blankets</span>
+            <span class="tag service">Snacks</span>
+            <span class="tag service">WiFi</span>
+          </div>
+          <a href="book.html?route=Mumbai-Goa" class="book-btn" onclick="event.stopPropagation()">Book Ticket</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card" onclick="openModal('modal3')">
+        <img src="bus 4.jpg" alt="Bangalore to Hyderabad">
+        <div class="card-content">
+          <h3>Bangalore → Hyderabad</h3>
+          <p>Premium day and night buses connecting major IT hubs.</p>
+          <div class="tags">
+            <span class="tag day">Day Plan</span>
+            <span class="tag night">Night Plan</span>
+            <span class="tag service">WiFi</span>
+            <span class="tag service">Charging</span>
+            <span class="tag service">Reading Light</span>
+          </div>
+          <a href="book.html?route=Bangalore-Hyderabad" class="book-btn" onclick="event.stopPropagation()">Book Ticket</a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card" onclick="openModal('modal4')">
+        <img src="bus 5.jpg" alt="Delhi to Jaipur">
+        <div class="card-content">
+          <h3>Delhi → Jaipur</h3>
+          <p>Comfortable rides with day/night travel and luxury services.</p>
+          <div class="tags">
+            <span class="tag day">Day Plan</span>
+            <span class="tag night">Night Plan</span>
+            <span class="tag service">Luxury Seating</span>
+            <span class="tag service">Entertainment</span>
+          </div>
+          <a href="book.html?route=Delhi-Jaipur" class="book-btn" onclick="event.stopPropagation()">Book Ticket</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  
+
+  <!-- Modals -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal1')">&times;</span>
+      <img src="bus 2.jpg" alt="Pune to Mumbai">
+      <h3>Pune → Mumbai</h3>
+      <p>Experience comfort, speed, and reliability for your journey.</p>
+      <ul>
+        <li><strong>Day Plan:</strong> AC Seater, Non-AC Seater, Departure 6AM-10AM</li>
+        <li><strong>Night Plan:</strong> AC Sleeper, Recliner, Departure 8PM-11PM</li>
+        <li><strong>Extra Services:</strong> WiFi, Charging, Snacks, Water, Reading Lights</li>
+      </ul>
+      <a href="book.html?route=Pune-Mumbai" class="book-btn">Book Ticket</a>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal2')">&times;</span>
+      <img src="bus 3.png" alt="Mumbai to Goa">
+      <h3>Mumbai → Goa</h3>
+      <p>Luxury scenic buses for both daytime sightseeing and night travel.</p>
+      <ul>
+        <li><strong>Day Plan:</strong> AC Seater with window view, Departure 7AM-11AM</li>
+        <li><strong>Night Plan:</strong> AC Sleeper, Recliners, Departure 9PM-12AM</li>
+        <li><strong>Extra Services:</strong> WiFi, Blankets, Snacks, Charging, Entertainment Screens</li>
+      </ul>
+      <a href="book.html?route=Mumbai-Goa" class="book-btn">Book Ticket</a>
+    </div>
+  </div>
+
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal3')">&times;</span>
+      <img src="bus 4.jpg" alt="Bangalore to Hyderabad">
+      <h3>Bangalore → Hyderabad</h3>
+      <p>Premium buses connecting IT hubs with safety and convenience.</p>
+      <ul>
+        <li><strong>Day Plan:</strong> AC Seater, WiFi, Departure 6AM-10AM</li>
+        <li><strong>Night Plan:</strong> AC Sleeper, Recliner, Reading Lights, Departure 8PM-11PM</li>
+        <li><strong>Extra Services:</strong> WiFi, Charging, Snacks, Entertainment</li>
+      </ul>
+      <a href="book.html?route=Bangalore-Hyderabad" class="book-btn">Book Ticket</a>
+    </div>
+  </div>
+
+  <div id="modal4" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal4')">&times;</span>
+      <img src="bus 5.jpg" alt="Delhi to Jaipur">
+      <h3>Delhi → Jaipur</h3>
+      <p>Comfortable travel with premium day/night options.</p>
+      <ul>
+        <li><strong>Day Plan:</strong> AC Seater, Non-AC Seater, Departure 7AM-11AM</li>
+        <li><strong>Night Plan:</strong> AC Sleeper, Luxury Recliner, Departure 9PM-12AM</li>
+        <li><strong>Extra Services:</strong> Entertainment Screens, Snacks, WiFi, Luxury Seating</li>
+      </ul>
+      <a href="book.html?route=Delhi-Jaipur" class="book-btn">Book Ticket</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 NexBus Reservation — All Rights Reserved
+  </footer>
+
+  <script>
+    function openModal(id) { document.getElementById(id).style.display = "flex"; }
+    function closeModal(id) { document.getElementById(id).style.display = "none"; }
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(m => { if (event.target === m) m.style.display = "none"; });
+    }
+  </script>
+</body>
+</html>

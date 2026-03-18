@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NexBus — Book Ticket</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XL03VKBWCD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XL03VKBWCD');
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #b9d5f0;
+    color: #111827;
+  }
+
+  header {
+      background: #1f2937; 
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 4em;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+    }
+  nav { margin-top: 12px; }
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    margin: 0 5px;
+    display: inline-block;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+  nav a:hover, nav a.active {
+    background: white;
+    color: #0b74ff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  main {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 40px auto;
+    text-align: center;
+  }
+  main h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #0b74ff;
+  }
+
+  form, .payment-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  label { display: block; margin: 12px 0 6px; font-weight: 600; color: #374151; }
+  input, select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: 0.3s;
+  }
+  input:focus, select:focus {
+    border-color: #0b74ff;
+    box-shadow: 0 0 6px rgba(11,116,255,0.3);
+    outline: none;
+  }
+
+  button {
+    padding: 12px 20px;
+    background: #0b74ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: 0.3s;
+    width: 100%;
+  }
+  button:hover {
+    background: #0654c2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .payment-option {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .payment-option:hover {
+    border-color: #0b74ff;
+    box-shadow: 0 0 6px rgba(11,116,255,0.3);
+  }
+  .payment-option input { margin-right: 12px; }
+  .payment-option i { margin-right: 8px; color: #0b74ff; }
+
+  .payment-details {
+    display: none;
+    padding: 16px;
+    border: 1px dashed #0b74ff;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background: #f0f9ff;
+    color: #0b74ff;
+  }
+  .payment-details h3 { margin-top:0; }
+
+  .confirm-checkbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+  .confirm-checkbox input { width: 24px; height: 24px; }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: #d1d5db;
+    font-size: 14px;
+    background: #1f2937;
+    border-top: 1px solid #374151;
+    margin-top: 50px;
+  }
+
+  #paymentSection { display: none; }
+  .error { color: red; font-size: 14px; display: none; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>NexBus</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="book.html" class="active">Book Ticket</a>
+    <a href="cancel.html">Cancel Ticket</a>
+    <a href="tickets.html">My Tickets</a>
+    <a href="popular.html">Popular Destinations</a>
+    <a href="tours.html">Tours</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="help.html">Help</a>
+  </nav>
+</header>
+
+<main>
+<h2>Book Your Ticket</h2>
+<form id="bookingForm">
+  <label for="from">From</label>
+  <select id="from">
+    <option>Pune</option>
+    <option>Mumbai</option>
+    <option>Bengaluru</option>
+    <option>Hyderabad</option>
+    <option>Goa</option>
+    <option>Delhi</option>
+    <option>Jaipur</option>
+  </select>
+
+  <label for="to">To</label>
+  <select id="to">
+    <option>Mumbai</option>
+    <option>Pune</option>
+    <option>Goa</option>
+    <option>Bengaluru</option>
+    <option>Hyderabad</option>
+    <option>Delhi</option>
+    <option>Jaipur</option>
+  </select>
+  <div id="routeError" class="error">From and To cannot be the same.</div>
+
+  <label for="date">Travel Date</label>
+  <input type="date" id="date" required>
+
+  <label for="name">Passenger Name</label>
+  <input type="text" id="name" placeholder="Enter full name" required>
+
+  <label for="seats">Number of Seats</label>
+  <select id="seats">
+    <script>
+      for(let i=1; i<=80; i++){
+        document.write('<option>' + i + '</option>');
+      }
+    </script>
+  </select>
+
+  <button type="submit">Proceed to Payment</button>
+</form>
+
+<div id="paymentSection" class="payment-section">
+  <h2>Select Payment Method</h2>
+
+  <div class="payment-option">
+    <input type="radio" name="payment" value="upi" onclick="showDetails('upi')">
+    <i class="fa-brands fa-google-pay fa-lg"></i> UPI Payment
+  </div>
+  <div id="upiDetails" class="payment-details">
+    <h3>UPI Payment Details</h3>
+    <label for="upiId">UPI ID</label>
+    <input type="text" id="upiId" value="nexbus@upi">
+    <div style="margin:12px 0; text-align:center;">
+      <img src="qr.png" alt="UPI QR" style="width:200px; height:200px; border-radius:12px; border:1px solid #ccc;">
+    </div>
+    <div class="confirm-checkbox">
+      <label for="upiConfirm">Confirm Payment</label>
+      <input type="checkbox" id="upiConfirm">
+    </div>
+  </div>
+
+  <div class="payment-option">
+    <input type="radio" name="payment" value="bank" onclick="showDetails('bank')">
+    <i class="fa-solid fa-university fa-lg"></i> Bank Transfer
+  </div>
+  <div id="bankDetails" class="payment-details">
+    <h3>Bank Transfer Details</h3>
+    <label for="bankName">Bank Name</label>
+    <input type="text" id="bankName" value="HDFC Bank">
+    <label for="accountNumber">Account Number</label>
+    <input type="text" id="accountNumber" value="1234567890">
+    <label for="ifsc">IFSC Code</label>
+    <input type="text" id="ifsc" value="HDFC0001234">
+    <div class="confirm-checkbox">
+      <label for="bankConfirm">Confirm Payment</label>
+      <input type="checkbox" id="bankConfirm">
+    </div>
+  </div>
+
+  <div class="payment-option">
+    <input type="radio" name="payment" value="card" onclick="showDetails('card')">
+    <i class="fa-solid fa-credit-card fa-lg"></i> Credit/Debit Card
+  </div>
+  <div id="cardDetails" class="payment-details">
+    <h3>Card Payment Details</h3>
+    <label for="cardNumber">Card Number</label>
+    <input type="text" id="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx">
+    <label for="expiry">Expiry Date</label>
+    <input type="text" id="expiry" placeholder="MM/YY">
+    <label for="cvv">CVV</label>
+    <input type="password" id="cvv" placeholder="CVV">
+    <div class="confirm-checkbox">
+      <label for="cardConfirm">Confirm Payment</label>
+      <input type="checkbox" id="cardConfirm">
+    </div>
+  </div>
+
+  <button onclick="payNow()">Pay Now</button>
+</div>
+</main>
+
+<footer>
+  &copy; 2025 NexBus Reservation — All Rights Reserved
+</footer>
+
+<script>
+const form = document.getElementById('bookingForm');
+const paymentSection = document.getElementById('paymentSection');
+const fromSelect = document.getElementById('from');
+const toSelect = document.getElementById('to');
+const routeError = document.getElementById('routeError');
+const dateField = document.getElementById('date');
+
+const today = new Date();
+today.setHours(0,0,0,0);
+const maxDateObj = new Date();
+maxDateObj.setDate(today.getDate() + 14);
+dateField.setAttribute('min', today.toISOString().split("T")[0]);
+dateField.setAttribute('max', maxDateObj.toISOString().split("T")[0]);
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const from = fromSelect.value;
+  const to = toSelect.value;
+  const date = dateField.value;
+  const seats = document.getElementById('seats').value;
+
+  if(from === to){ routeError.style.display = 'block'; return; }
+  else { routeError.style.display = 'none'; }
+
+  const nameRegex = /^[A-Za-z\s]+$/;
+  if(!name || !nameRegex.test(name)){ alert('Passenger Name must contain only letters and spaces.'); return; }
+
+  const travelDate = new Date(date);
+  if(!date || travelDate < today || travelDate > maxDateObj){ alert('Travel Date must be today or within the next 2 weeks.'); return; }
+
+  if(!from || !to || !seats){ alert('Please fill all booking details before proceeding to payment.'); return; }
+
+  paymentSection.style.display = 'block';
+  paymentSection.scrollIntoView({behavior: "smooth"});
+});
+
+function showDetails(method){
+  ['upi','bank','card'].forEach(m => {
+    document.getElementById(m+'Details').style.display = (m===method)? 'block':'none';
+  });
+}
+
+function payNow(){
+  const selectedPayment = document.querySelector('input[name="payment"]:checked');
+  if(!selectedPayment){ alert('Please select a payment method.'); return; }
+  if(selectedPayment.value==='bank' && !document.getElementById('bankConfirm').checked){ alert('Please confirm your bank payment.'); return; }
+  if(selectedPayment.value==='card' && !document.getElementById('cardConfirm').checked){ alert('Please confirm your card payment.'); return; }
+  if(selectedPayment.value==='upi' && !document.getElementById('upiConfirm').checked){ alert('Please confirm your UPI payment.'); return; }
+  alert('Payment successful via '+selectedPayment.value.toUpperCase()+'!\nThank you for booking with NexBus.');
+  form.reset();
+  paymentSection.style.display = 'none';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// Auto-fill from Popular Destinations links
+const urlParams = new URLSearchParams(window.location.search);
+const route = urlParams.get("route");
+if(route){
+  const parts = route.split("-"); // Split by dash for links like Pune-Mumbai
+  if(parts.length===2){
+    fromSelect.value = parts[0];
+    toSelect.value = parts[1];
+    window.scrollTo({top: document.getElementById('bookingForm').offsetTop, behavior:'smooth'});
+  }
+}
+</script>
+</body>
+</html>

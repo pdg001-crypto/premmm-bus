@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NexBus — Home</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XL03VKBWCD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XL03VKBWCD');
+</script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #34235a;
+      color: #111827;
+    }
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 4em;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    nav {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      position: relative;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      margin: 0 3px;
+      display: inline-block;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    nav a:hover, nav a.active {
+      background: white;
+      color: #1f2937;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    /* Search Box */
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: hwb(0 100% 0%);
+      border-radius: 6px;
+      overflow: visible;
+      margin-left: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      position: relative;
+      width: 260px;
+    }
+    .search-box input {
+      border: none;
+      outline: none;
+      padding: 8px 10px;
+      font-size: 0.95em;
+      flex: 1;
+      min-width: 0;
+    }
+    .search-box button {
+      background: #0b74ff;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .search-box button:hover {
+      background: #0650b0;
+    }
+    .search-suggestions {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      width: 100%;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      z-index: 50;
+      overflow: hidden;
+      max-height: 240px;
+      overflow-y: auto;
+      border: 1px solid rgba(10,10,10,0.06);
+    }
+    .search-suggestions ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .search-suggestions li {
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: 0.95em;
+      color: #0b2740;
+    }
+    .search-suggestions li:hover,
+    .search-suggestions li.active {
+      background: #0b74ff;
+      color: white;
+    }
+    .search-suggestions .no-results {
+      padding: 10px 12px;
+      color: #6b7280;
+    }
+    /* Banner Section */
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url('bus 1.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .banner-text {
+      position: relative;
+      text-align: center;
+      z-index: 1;
+    }
+    .banner-text h2 {
+      font-size: 3.5em;
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+    .banner-text p {
+      font-size: 1.5em;
+      margin: 0;
+    }
+    /* Login Box over Banner */
+    #loginMessage {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 350px;
+      background: #ffe946;
+      padding: 25px 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 0.9em;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      z-index: 3;
+      color: #0b2740;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    #loginMessage input, #loginMessage button, .captcha-box {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.95em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    #loginMessage button {
+      background: #0b74ff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    #loginMessage button:hover {
+      background: #0650b0;
+    }
+    .captcha-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff3e0;
+      font-weight: bold;
+      color: #0b2740;
+      user-select: none;
+      border: 1px solid #ccc;
+    }
+    .captcha-box span {
+      font-size: 1.2em;
+      letter-spacing: 2px;
+      padding-left: 6px;
+    }
+    .captcha-refresh {
+      cursor: pointer;
+      font-size: 1.1em;
+      padding-right: 6px;
+    }
+    /* Welcome Section */
+    main {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: -150px auto 40px auto;
+      text-align: center;
+      background: #1f2937;
+      color: #f8fafc;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    main h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    main p {
+      font-size: 1.2em;
+      line-height: 1.6;
+    }
+    /* Footer */
+    footer {
+      background: #1f2937;
+      color: #d1d5db;
+      margin-top: 40px;
+    }
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .footer-content h3 {
+      color: #ffffff;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+    }
+    .footer-content p, 
+    .footer-content a {
+      color: #d1d5db;
+      font-size: 0.95em;
+      text-decoration: none;
+      line-height: 1.6;
+    }
+    .footer-content a:hover {
+      color: #3b82f6;
+    }
+    .social-icons a {
+      margin-right: 12px;
+      font-size: 1.2em;
+      color: #d1d5db;
+      transition: 0.3s;
+    }
+    .social-icons a:hover {
+      color: #3b82f6;
+    }
+    .footer-bottom {
+      text-align: center;
+      padding: 15px;
+      background: #111827;
+      color: #9ca3af;
+      font-size: 14px;
+    }
+    /* Best Offers Popup Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -55%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+    @media (max-width: 720px) {
+      header h1 { font-size: 2.2em; }
+      .search-box { width: 100%; margin-top: 8px; }
+      nav { justify-content: center; gap: 8px; padding: 0 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Box -->
+  <div id="loginMessage">
+    <input type="text" id="mobileNumber" placeholder="Registered Mobile Number" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+    <div class="captcha-box">
+      <span id="captchaText"></span>
+      <i class="fas fa-sync-alt captcha-refresh" onclick="generateCaptcha()"></i>
+    </div>
+    <input type="text" id="captchaInput" placeholder="Enter Captcha">
+    <button onclick="validateLogin()">Login</button>
+  </div>
+
+  <header>
+    <h1>NexBus</h1>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="book.html">Book Ticket</a>
+      <a href="cancel.html">Cancel Ticket</a>
+      <a href="tickets.html">My Tickets</a>
+      <a href="popular.html">Popular Destinations</a>
+      <a href="tours.html">Tours</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="help.html">Help</a>
+
+      <form class="search-box" id="siteSearchForm" role="search" aria-label="Site search">
+        <input id="siteSearchInput" type="text" placeholder="Search the site..." aria-label="Search the site" autocomplete="off">
+        <button id="siteSearchBtn" type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
+        <div class="search-suggestions" id="searchSuggestions" style="display:none;">
+          <ul id="suggestionsList"></ul>
+        </div>
+      </form>
+    </nav>
+  </header>
+
+  <!-- Banner Section -->
+  <section class="banner">
+    <div class="banner-text">
+      <h2>Welcome to NexBus Reservation</h2>
+      <p>Book your bus tickets easily & travel with comfort</p>
+    </div>
+  </section>
+
+  <!-- Welcome Section -->
+<main style="margin-top: -200px;"> <!-- moved up from -150px to -200px -->
+  <h2 style="margin-bottom: 20px;">NexBus Reservation</h2>
+  <p>Fast, Safe, and Reliable travel booking system. Use the navigation menu above to explore our services and book your next journey with ease.</p>
+
+  <!-- Best Offers Button -->
+  <div style="text-align:center; margin-top:15px;"> <!-- slightly moved up -->
+    <button id="offersButton" style="background:#f59e0b; color:white; border:none; padding:12px 25px; font-size:1.1em; font-weight:600; border-radius:8px; cursor:pointer; transition:0.3s;">
+      View Best Offers
+    </button>
+  </div>
+</main>
+
+
+<!-- Offers Popup -->
+<div id="offersPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:90%; max-width:600px; background:#1f2937; color:#f8fafc; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.5); z-index:999; padding:30px 25px; text-align:left; animation:fadeIn 0.3s ease;">
+  <h3 style="text-align:center; color:#f59e0b; margin-top:0; font-size:1.8em;">Best Offers</h3>
+  <ul style="padding-left:20px; font-size:1.05em; line-height:1.8;">
+    <li>🎫 Flat 20% off on AC buses this week!</li>
+    <li>🚌 Buy 2 tickets, get 1 free on select routes.</li>
+    <li>💳 Extra cashback of ₹50 on digital payments.</li>
+    <li>⏰ Early bird offer: Book 7 days in advance and save 15%.</li>
+    <li>🎁 Special weekend discounts on Mumbai-Pune route.</li>
+    <li>🏖️ Combo offer: Ticket + Hotel package available.</li>
+  </ul>
+  <button class="closePopup" onclick="closeOffersPopup()" style="display:block; margin:20px auto 0 auto; padding:10px 20px; background:#f59e0b; color:white; border:none; border-radius:8px; cursor:pointer; transition:0.3s;">
+    Close
+  </button>
+</div>
+
+
+  <!-- Bus Time Schedule Section -->
+  <section style="max-width: 1100px; margin: 40px auto; padding: 20px; 
+                background:#ffffff; border-radius:10px; 
+                box-shadow:0 8px 20px rgba(0,0,0,0.2); 
+                font-size:1.05em; border: 2px solid #0b74ff; text-align:center;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:15px; margin-bottom:20px;">
+      <h2 style="color:#0b74ff; font-size:2em; border-bottom:2px solid #0b74ff; 
+                 padding-bottom:6px; margin:0; text-align:center;">Bus Time Schedule</h2>
+      <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px; width:100%; max-width:800px;">
+        <div>
+          <label for="scheduleDate" style="font-weight:600; margin-right:8px;">Select Date:</label>
+          <input type="date" id="scheduleDate" style="padding:8px 12px; border-radius:6px; border:1px solid #ccc; font-size:1em;">
+        </div>
+        <div>
+          <input type="text" id="routeSearch" placeholder="Search by From/To" 
+                 style="padding:8px 12px; border-radius:6px; border:1px solid #ccc; font-size:1em; width:220px;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Schedule Table -->
+    <table id="busScheduleTable" style="width:100%; border-collapse:collapse; text-align:center; margin:auto;">
+      <thead>
+        <tr style="background:#0b74ff; color:white; font-size:1.1em;">
+          <th>Bus Name</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Duration</th>
+          <th>Fare</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Always visible -->
+        <tr><td>Express AC</td><td>Pune</td><td>Mumbai</td><td>06:00</td><td>10:00</td><td>4h</td><td>₹450</td></tr>
+        <tr><td>Volvo Luxury</td><td>Pune</td><td>Mumbai</td><td>09:00</td><td>13:00</td><td>4h</td><td>₹650</td></tr>
+        <!-- Hidden routes -->
+        <tr class="more-routes" style="display:none;"><td>Night Express</td><td>Mumbai</td><td>Bengaluru</td><td>20:00</td><td>08:00</td><td>12h</td><td>₹900</td></tr>
+        <tr class="more-routes" style="display:none;"><td>Super Deluxe</td><td>Delhi</td><td>Jaipur</td><td>07:00</td><td>12:00</td><td>5h</td><td>₹500</td></tr>
+        <tr class="more-routes" style="display:none;"><td>AC Sleeper</td><td>Bengaluru</td><td>Pune</td><td>19:00</td><td>07:00</td><td>12h</td><td>₹850</td></tr>
+        <tr class="more-routes" style="display:none;"><td>City Link</td><td>Mumbai</td><td>Goa</td><td>05:30</td><td>14:30</td><td>9h</td><td>₹700</td></tr>
+        <tr class="more-routes" style="display:none;"><td>Rajdhani Express</td><td>Delhi</td><td>Agra</td><td>08:00</td><td>12:00</td><td>4h</td><td>₹400</td></tr>
+        <tr class="more-routes" style="display:none;"><td>Metro Travels</td><td>Pune</td><td>Bengaluru</td><td>10:00</td><td>20:00</td><td>10h</td><td>₹800</td></tr>
+        <tr class="more-routes" style="display:none;"><td>Luxury AC</td><td>Chennai</td><td>Bengaluru</td><td>06:00</td><td>12:00</td><td>6h</td><td>₹550</td></tr>
+        <tr class="more-routes" style="display:none;"><td>Night Sleeper</td><td>Mumbai</td><td>Delhi</td><td>22:00</td><td>10:00</td><td>12h</td><td>₹1000</td></tr>
+      </tbody>
+    </table>
+
+    <div style="text-align:center; margin-top:20px;">
+      <button id="toggleRoutes" style="padding:8px 15px; border:none; background:#0b74ff; color:white; border-radius:6px; cursor:pointer; font-size:1em;">
+        Read More
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+<footer>
+  <div class="footer-content">
+    <div>
+      <h3>About NexBus</h3>
+      <p>NexBus provides fast, safe, and affordable travel reservations across the country. Enjoy your journey with comfort and reliability.</p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <a href="book.html">Book Ticket</a><br>
+      <a href="cancel.html">Cancel Ticket</a><br>
+      <a href="tickets.html">My Tickets</a><br>
+      <a href="help.html">Help</a>
+    </div>
+    <div>
+      <h3>Contact Us</h3>
+      <p>Email: <a href="mailto:wwe@nexbus.com">wwe@nexbus.com</a></p>
+      <p>Phone: <a href="tel:+919876543210">+91 98765 43210</a></p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 NexBus Reservation — All Rights Reserved
+  </div>
+</footer>
+
+
+  <script>
+    /***** CAPTCHA *****/
+    let currentCaptcha = '';
+    function generateCaptcha() {
+      currentCaptcha = Math.floor(1000 + Math.random() * 9000).toString();
+      document.getElementById('captchaText').innerText = currentCaptcha;
+    }
+    function validateLogin() {
+      const mobile = document.getElementById('mobileNumber').value.trim();
+      const captchaInput = document.getElementById('captchaInput').value.trim();
+      if (mobile.length !== 10) { alert('Please enter a valid 10-digit mobile number.'); return; }
+      if (captchaInput !== currentCaptcha) { alert('Incorrect captcha. Please try again.'); generateCaptcha(); return; }
+      alert('Login successful!');
+      document.getElementById('loginMessage').style.display = 'none';
+    }
+
+    /***** SITE SEARCH *****/
+    const pages = [
+      { title: 'Home', url: 'index.html', keywords: ['home','index','nexbus','reservation','dashboard'] },
+      { title: 'Book Ticket', url: 'book.html', keywords: ['book','book ticket','booking','reserve','tickets'] },
+      { title: 'Cancel Ticket', url: 'cancel.html', keywords: ['cancel','cancel ticket','cancellation','refund'] },
+      { title: 'My Tickets', url: 'tickets.html', keywords: ['my tickets','tickets','booking details','pnr','ticket details'] },
+      { title: 'Popular Destinations', url: 'popular.html', keywords: ['popular','destinations','places','popular destinations'] },
+      { title: 'Tours', url: 'tours.html', keywords: ['tours','tour','packages','travel packages'] },
+      { title: 'Gallery', url: 'gallery.html', keywords: ['gallery','photos','images','pictures'] },
+      { title: 'Help', url: 'help.html', keywords: ['help','support','contact','faq','assistance'] }
+    ];
+
+    const form = document.getElementById('siteSearchForm');
+    const input = document.getElementById('siteSearchInput');
+    const suggestionsBox = document.getElementById('searchSuggestions');
+    const suggestionsList = document.getElementById('suggestionsList');
+    let currentSelection = -1;
+    let currentResults = [];
+
+    function normalize(text) { return text.toString().trim().toLowerCase(); }
+    function findMatches(query) {
+      const q = normalize(query);
+      if (!q) return [];
+      const scored = pages.map(p => {
+        let score = 0;
+        if (normalize(p.title) === q) score += 100;
+        if (normalize(p.title).includes(q)) score += 60;
+        if (p.url.toLowerCase().includes(q)) score += 50;
+        p.keywords.forEach(k => {
+          if (normalize(k) === q) score += 40;
+          else if (normalize(k).includes(q)) score += 20;
+        });
+        return { p, score };
+      });
+      return scored.filter(s => s.score > 0).sort((a,b) => b.score - a.score).map(s => s.p);
+    }
+
+    function showSuggestions(results, query) {
+      suggestionsList.innerHTML = '';
+      currentResults = results;
+      currentSelection = -1;
+      if (!results || results.length === 0) {
+        const li = document.createElement('li');
+        li.classList.add('no-results');
+        li.innerHTML = `No results found. <a href="https://www.google.com/search?q=${encodeURIComponent(query)}" target="_blank">Search on Google</a>`;
+        suggestionsList.appendChild(li);
+        suggestionsBox.style.display = 'block';
+        return;
+      }
+      results.slice(0, 8).forEach((r, idx) => {
+        const li = document.createElement('li');
+        li.textContent = r.title;
+        li.setAttribute('data-url', r.url);
+        li.setAttribute('role', 'option');
+        li.addEventListener('click', () => { window.location.href = r.url; });
+        li.addEventListener('mouseenter', () => { clearActive(); li.classList.add('active'); currentSelection = idx; });
+        suggestionsList.appendChild(li);
+      });
+      suggestionsBox.style.display = 'block';
+    }
+
+    function clearActive() { suggestionsList.querySelectorAll('li').forEach(it => it.classList.remove('active')); }
+    function clearSuggestions() { suggestionsBox.style.display = 'none'; suggestionsList.innerHTML = ''; currentResults = []; currentSelection = -1; }
+
+    input.addEventListener('input', (e) => { 
+      const q = e.target.value; 
+      if (!q) { clearSuggestions(); return; } 
+      showSuggestions(findMatches(q), q); 
+    });
+
+    input.addEventListener('keydown', (e) => {
+      const items = suggestionsList.querySelectorAll('li');
+      if (suggestionsBox.style.display === 'none' || items.length === 0) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); currentSelection = (currentSelection + 1) % items.length; clearActive(); items[currentSelection].classList.add('active'); items[currentSelection].scrollIntoView({ block: 'nearest' }); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); currentSelection = (currentSelection - 1 + items.length) % items.length; clearActive(); items[currentSelection].classList.add('active'); items[currentSelection].scrollIntoView({ block: 'nearest' }); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (currentSelection >= 0 && currentResults[currentSelection]) window.location.href = currentResults[currentSelection].url; else { const matches = findMatches(input.value); if (matches.length === 0) window.open(`https://www.google.com/search?q=${encodeURIComponent(input.value)}`, "_blank"); else window.location.href = matches[0].url; } }
+      else if (e.key === 'Escape') clearSuggestions();
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (!q) { input.focus(); return; }
+      const matches = findMatches(q);
+      if (matches.length === 0) { window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, "_blank"); return; }
+      if (currentSelection >= 0 && currentResults[currentSelection]) window.location.href = currentResults[currentSelection].url;
+      else window.location.href = matches[0].url;
+    });
+
+    document.addEventListener('click', (e) => { if (!form.contains(e.target)) clearSuggestions(); });
+    suggestionsList.addEventListener('mousedown', (e) => e.preventDefault());
+
+    document.addEventListener('DOMContentLoaded', () => { generateCaptcha(); });
+
+    // Toggle Read More / Read Less
+    const toggleBtn = document.getElementById('toggleRoutes');
+    toggleBtn.addEventListener('click', () => {
+      const moreRows = document.querySelectorAll('.more-routes');
+      const isHidden = moreRows[0].style.display === 'none';
+      moreRows.forEach(r => r.style.display = isHidden ? '' : 'none');
+      toggleBtn.textContent = isHidden ? 'Read Less' : 'Read More';
+    });
+
+    // Restrict Dates
+    const dateInput = document.getElementById('scheduleDate');
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    const minDate = `${yyyy}-${mm}-${dd}`;
+    const maxDateObj = new Date(today);
+    maxDateObj.setDate(today.getDate() + 7);
+    const maxDate = `${maxDateObj.getFullYear()}-${String(maxDateObj.getMonth()+1).padStart(2,'0')}-${String(maxDateObj.getDate()).padStart(2,'0')}`;
+    dateInput.setAttribute('min', minDate);
+    dateInput.setAttribute('max', maxDate);
+
+    // Route Search
+    const routeInput = document.getElementById('routeSearch');
+    const table = document.getElementById('busScheduleTable').getElementsByTagName('tbody')[0];
+    routeInput.addEventListener('input', () => {
+      const filter = routeInput.value.toLowerCase();
+      const moreRows = document.querySelectorAll('.more-routes');
+      for (let i = 0; i < table.rows.length; i++) {
+        const row = table.rows[i];
+        const from = row.cells[1].textContent.toLowerCase();
+        const to = row.cells[2].textContent.toLowerCase();
+        const matches = from.includes(filter) || to.includes(filter);
+        if (row.classList.contains('more-routes')) row.style.display = matches && toggleBtn.textContent === 'Read Less' ? '' : 'none';
+        else row.style.display = matches ? '' : 'none';
+      }
+    });
+
+    // Offers Popup
+    const offersBtn = document.getElementById('offersButton');
+    const offersPopup = document.getElementById('offersPopup');
+    offersBtn.addEventListener('click', () => { offersPopup.style.display = 'block'; });
+    function closeOffersPopup() { offersPopup.style.display = 'none'; }
+    window.addEventListener('click', (e) => { if (e.target === offersPopup) closeOffersPopup(); });
+  </script>
+</body>
+</html>
